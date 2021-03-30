@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="title"></div>
+  <div class="getTitleBtn">获取标题</div>
+  <form action="/add" method="post">
+    <input type="text" name="abc" value="123">
+    <input type="submit" value="Add">
+  </form>
+  <script src="/jquery.js"></script>
+  <script>
+    // const jquery = import('../../node_modules/jquery/src/jquery.js');
+    $('.getTitleBtn').on('click', function() {
+      $.post({
+        url: '/getTitle',
+        method: 'get',
+        data: {
+          a: 1
+        },
+        success(data) {
+          console.log('data', data);
+          $('.title').text(data)
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>

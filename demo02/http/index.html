@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" id="upload">
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.js"></script>
+  <script>
+    axios.defaults.baseURL = 'http://localhost:4000'
+    axios.defaults.withCredentials = true
+
+    // const img = new Image()
+    // img.src='/api/users?abc=123'
+
+    document.getElementById('upload').addEventListener('change', function() {
+      console.log(1111);
+      var formData = new FormData();
+      // formData.append("uploadFile", $("input[name='uploadFile']")[0].files[0]);
+      console.log(' this.files[0]',  this.files);
+      formData.append("uploadFile", this.files[0]);
+      var api = axios.create({
+        baseURL: 'http://localhost:4000',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'file-name': this.files[0].name,
+          'X-Token': 'token'
+        }
+      })
+      // 第一种
+      api.post('/upload', this.files[0]).then(res => {
+      // 第二种
+      // api.post('/upload', formData).then(res => {
+        console.log('uploadres', res);
+      })
+      // var _files = this.files;
+      // if (!_files.length) return;
+      // if (_files.length === 1) { // 选择单个文件
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('POST', 'http://localhost:4000/upload');
+      //   // xhr.open('POST', '/upload');
+      //   var filePath = _files[0].value;
+      //   // xhr.setRequestHeader('file-name', filePath.substring(filePath.lastIndexOf('\\') + 1));
+      //   xhr.send(_files[0]);
+      // }
+    })
+
+    console.log('index.html')
+
+    // (async () => {
+
+    async function fn1() {
+      let res
+      // 1
+      // let res = await axios.get("/api/users")
+
+      // 2
+      // try {
+      res = await axios.get("/api/users", { headers: { 'X-Token': 'jilei' } })
+      // res = await axios.post("/api/users", { headers: { 'X-Token': 'jilei' } })
+      // } catch (error) {
+      //   console.log('erro', error);
+      // }
+
+      // console.log('data',res.data)
+      // document.writeln(`Response : ${JSON.stringify(res.data)}`)
+
+      // await axios.post("/api/save", 'a=1&b=3', {
+      //     headers: {
+      //         'Content-Type': 'application/x-www-form-urlencoded',
+      //     },
+      // })
+      // await axios.post("/api/save", {
+      //     a: 1,
+      //     b: 2
+      // })
+
+      console.log('res', res);
+      // })()
+    }
+
+    fn1();
+  </script>
+
+  <!-- <form action="/api/save" method="post">
+    <input type="text" name="abc" value="123">
+    <input type="submit" value="save">
+</form> -->
+</body>
+
+</html>

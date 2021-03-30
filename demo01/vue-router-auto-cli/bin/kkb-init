@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+// chmod +x * 在bin目录下运行，添加权限
+// chmod +x bin/* 
+
+const program = require('commander')
+const { clone } = require('../lib/download.js')
+let url = 'github:su37josephxia/vue-template';
+let target = './test';
+program.action(async name => {
+  // console.log('init ' + name)
+  console.log('创建项目：' + name)
+  await clone(url, name)
+})
+
+program.parse(process.argv);
